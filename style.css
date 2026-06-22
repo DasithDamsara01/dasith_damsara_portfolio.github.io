@@ -600,3 +600,17 @@ footer {
     color: #ffffff;      /* අකුරු වල පාට (සුදු) */
     white-space: nowrap; /* text එක කැඩිලා පල්ලෙහාට යන එක නවත්වන්න */
 }
+/* ටයිම්ලයින් එකේ ඉර උඩටම යන බව ස්ථිර කර ගැනීමට */
+.timeline-item {
+    position: relative;
+    padding-bottom: 30px; /* කාඩ් එකක් සහ තව එකක් අතර පරතරය */
+}
+
+/* 2026 කාඩ් එකටත් අනිත් ඒවා වගේම ලස්සන background එකක් සහ border එකක් දීම */
+.timeline-content {
+    background: linear-gradient(135deg, rgba(20, 30, 70, 0.7), rgba(10, 15, 40, 0.8)); /* නිල් පාට gradient එක */
+    border: 1px solid rgba(0, 229, 255, 0.2); /* සියුම් border එකක් */
+    border-radius: 8px;
+    padding: 20px;
+    margin-left: 30px; /* ඉරේ සිට ඇති දුර */
+}

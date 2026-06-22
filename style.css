@@ -107,14 +107,7 @@ a, button, .color-ball {
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
 }
-.container {
-  display: flex;
-  flex-direction: column; /* text එක යටටම වෙන්න alignment එක තියාගන්න */
-  justify-content: flex-end; /* සිරස්ව (vertically) යටටම කරන්න */
-  align-items: center; /* තිරස්ව (horizontally) හරියටම මැදට ගන්න */
-  height: 100vh; /* screen එකේ උස ප්‍රමාණයට සමාන කරන්න */
-  padding-bottom: 50px; /* screen එකේ යටම වදින්නේ නැතිව පොඩි ඉඩක් තියන්න */
-}
+
 /* Control HUD */
 .theme-controls-container {
     position: fixed;

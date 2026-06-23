@@ -49,19 +49,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const cursorDot = document.getElementById('cursorDot');
     const cursorOutline = document.getElementById('cursorOutline');
 
-    let dotX = 0, dotY = 0;       // Mouse Position
-    let outlineX = 0, outlineY = 0; // Big Circle Position
-    const delay = 0.15;            // Magnetic pull speed (lower = more elastic delay)
+    let dotX = 0, dotY = 0;       
+    let outlineX = 0, outlineY = 0; 
+    const delay = 0.15;            
 
     window.addEventListener('mousemove', (e) => {
         dotX = e.clientX;
         dotY = e.clientY;
-        // Small dot snaps instantly
         cursorDot.style.transform = `translate(${dotX}px, ${dotY}px) translate(-50%, -50%)`;
     });
 
     function animateMagnetCursor() {
-        // Linear interpolation formula creates the organic elastic magnet feeling
         outlineX += (dotX - outlineX) * delay;
         outlineY += (dotY - outlineY) * delay;
 
@@ -137,7 +135,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setInterval(changeHeroIcon, 3500);
 
-    // Run initial states
+    // 5. PROJECT VIEWER SYSTEM
+    const projectTriggers = document.querySelectorAll('.project-trigger');
+    const projectViewer = document.getElementById('projectViewer');
+    const closeViewerBtn = document.getElementById('closeViewerBtn');
+    const nextProjectBtn = document.getElementById('nextProjectBtn');
+    const viewerProjectTitle = document.getElementById('viewerProjectTitle');
+
+    const projectOrder = ['illustrator', 'photoshop', 'indesign', 'coreldraw', 'websites'];
+    const projectTitles = {
+        'illustrator': 'Adobe Illustrator',
+        'photoshop': 'Adobe Photoshop',
+        'indesign': 'Adobe InDesign',
+        'coreldraw': 'CorelDraw',
+        'websites': 'Web Site & Portfolio'
+    };
+    
+    let currentProject = '';
+
+    function openProject(projectId) {
+        currentProject = projectId;
+        viewerProjectTitle.innerText = projectTitles[projectId];
+        projectViewer.classList.add('active');
+        projectViewer.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    projectTriggers.forEach(card => {
+        card.addEventListener('click', () => {
+            const projectId = card.getAttribute('data-project');
+            openProject(projectId);
+        });
+    });
+
+    closeViewerBtn.addEventListener('click', () => {
+        projectViewer.classList.remove('active');
+    });
+
+    nextProjectBtn.addEventListener('click', () => {
+        let currentIndex = projectOrder.indexOf(currentProject);
+        let nextIndex = (currentIndex + 1) % projectOrder.length;
+        openProject(projectOrder[nextIndex]);
+    });
+
     updateAccentColor();
     typingEffect();
 });

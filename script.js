@@ -132,28 +132,37 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     // 💡 5. DYNAMIC PROJECT DATA (AUTO-ADD SYSTEM)
     // ==========================================
-    // 📌 දසිත්, ඔයාගේ පින්තූරවල නම් (Paths) වෙනස් කරන්න ඕනේ මෙන්න මේ පල්ලෙහා තියෙන ලිස්ට් එකෙන් විතරයි!
     const myProjectsData = {
         'illustrator': [
-            { title: 'Visiting card', 
-             desc: 'Detailed vector portrait created in Adobe Illustrator.', 
-             img: 'images/apex-motors-vcard.jpg' },
-            
-            { title: 'Modern Brand Logo', 
-             desc: 'Minimalist corporate identity logo design.',
-             img: 'images/logo-design.png' }
+            { 
+                title: 'Visiting card', 
+                desc: 'Detailed vector portrait created in Adobe Illustrator.', 
+                img: 'images/apex-motors-vcard.jpg' // 👈 මම මේක ඔයා හැදූ විදිහට නිවැරදි කළා
+            },
+            { 
+                title: 'Modern Brand Logo', 
+                desc: 'Minimalist corporate identity logo design.', 
+                img: 'images/logo-design.png' 
+            }
         ],
         'photoshop': [
-            { title: 'Surreal Photo Manipulation',
-             desc: 'Advanced image blending, lighting and grading.',
-             img: 'images/manipulation.png' }
+            { 
+                title: 'Surreal Photo Manipulation', 
+                desc: 'Advanced image blending, lighting and grading.', 
+                img: 'images/manipulation.png' 
+            }
         ],
-        'indesign': [],  // දැනට හිස්ව ඇති නිසා Auto "NO PROJECTS YET" කියලා වැටේවි
+        'indesign': [],  
         'coreldraw': [],
+        
+        // 🌐 WEBSITES AND PORTFOLIO SECTION
         'websites': [
-            { title: 'Personal Portfolio Website',
-             desc: 'Clean, responsive front-end dark layout design.',
-             img: 'images/portfolio-site.png' }
+            { 
+                title: 'My Other Creative Portfolio Website', 
+                desc: 'This is a live preview of my responsive front-end design project. Scroll inside to explore.', 
+                img: 'images/portfolio-site.png', 
+                link: 'https://dasithdamsara.github.io/my-other-project/' // 👈 දසිත්, ඔයා පෙන්වන්න ඕනේ වෙබ් අඩවියේ ඇත්තම ලින්ක් එක මෙතනට දාන්න!
+            }
         ]
     };
 
@@ -175,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let currentProject = '';
 
-    // Automatically render project grids using JS
+    // Automatically render project grids or iframes using JS
     function openProject(projectId) {
         currentProject = projectId;
         viewerProjectTitle.innerText = projectTitles[projectId];
@@ -189,17 +198,33 @@ document.addEventListener('DOMContentLoaded', () => {
             gridContainer.className = 'project-gallery-grid';
 
             projects.forEach(proj => {
-                gridContainer.innerHTML += `
-                    <div class="project-item-card">
-                        <div class="project-img-wrapper">
-                            <img src="${proj.img}" alt="${proj.title}" onerror="this.src='https://placehold.co/600x400/111827/ffffff?text=Image+Not+Found'">
+                // ⚡ වෙබ් අඩවි සඳහා iframe එකක් ජෙනරේට් කිරීම (සයිට් එක ඇතුළෙන්ම බලාගන්න)
+                if (proj.link) {
+                    gridContainer.innerHTML += `
+                        <div class="project-item-card" style="grid-column: 1 / -1; max-width: 100%; border-color: var(--accent-color);">
+                            <div class="project-card-details">
+                                <h4>${proj.title}</h4>
+                                <p style="margin-bottom: 15px;">${proj.desc}</p>
+                            </div>
+                            <div class="web-frame-wrapper" style="width: 100%; height: 550px; border-radius: 12px; overflow: hidden; background: #111827; border: 1px solid rgba(128, 128, 128, 0.2);">
+                                <iframe src="${proj.link}" style="width: 100%; height: 100%; border: none;" title="${proj.title}"></iframe>
+                            </div>
                         </div>
-                        <div class="project-card-details">
-                            <h4>${proj.title}</h4>
-                            <p>${proj.desc}</p>
+                    `;
+                } else {
+                    // 📷 සාමාන්‍ය Graphic Design පින්තූර පෙන්වීම
+                    gridContainer.innerHTML += `
+                        <div class="project-item-card">
+                            <div class="project-img-wrapper">
+                                <img src="${proj.img}" alt="${proj.title}" onerror="this.src='https://placehold.co/600x400/111827/ffffff?text=Image+Not+Found'">
+                            </div>
+                            <div class="project-card-details">
+                                <h4>${proj.title}</h4>
+                                <p>${proj.desc}</p>
+                            </div>
                         </div>
-                    </div>
-                `;
+                    `;
+                }
             });
             viewerDynamicArea.appendChild(gridContainer);
         } else {
